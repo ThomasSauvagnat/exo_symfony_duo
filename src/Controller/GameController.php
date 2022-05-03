@@ -12,6 +12,7 @@ class GameController extends AbstractController
     #[Route('/jeux', name: 'app_game')]
     public function index(GameRepository $gameRepository): Response
     {
+
         return $this->render('game/index.html.twig', [
             'controller_name' => 'GameController',
             'games' => $gameRepository -> findAll(),

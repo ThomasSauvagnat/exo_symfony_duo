@@ -7,6 +7,18 @@
 
 
 {% block body %}
+    <div class="container">
 
+    <h2>Les dernières sorties</h2>
 
+        <div class="row">
+            {% for game in lastGames %}
+                <div class="col-md-4 text-center">
+                    {% block card %}
+                        {% include './card/_card.html.twig' %}
+                    {% endblock %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}
