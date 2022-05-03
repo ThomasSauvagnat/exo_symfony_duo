@@ -1,23 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ parent() }}
-    OK
+    Steamish
 {% endblock %}
 
 
 
 {% block body %}
 
-    <div class="container">
-        <h1>Hello {{ controller_name }}! ✅</h1>
 
-        <a href="{{ path('app_publisher') }}">
-            Editeurs
-        </a>
-
-        {% if message is defined %}
-            {{ message }}
-        {% endif %}
-    </div>
 {% endblock %}
