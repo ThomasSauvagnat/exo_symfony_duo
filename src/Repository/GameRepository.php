@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Game;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
