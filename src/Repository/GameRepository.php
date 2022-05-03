@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Game;
+use App\Entity\Library;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\Query\QueryBuilder;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -41,5 +43,15 @@ class GameRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
+    }
+
+    public function getMostPlayedGames($limit = 9)
+    {
+        return $this -> createQueryBuilder('g')
+        -> join(Library::class, 'lib', Join::WITH, 'lib.game = g')
+        -> groupBy('g.name')
+        -> orderBy('SUM(lib.gameTime', 'DESC')
+        -> setMaxResults($limit)
+        -> getQuery() -> getResult();
     }
 }
