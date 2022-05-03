@@ -33,4 +33,13 @@ class LibraryRepository extends ServiceEntityRepository
             $this->_em->flush();
         }
     }
+
+    public function gameMostPlayed()
+    {
+        return $this -> createQueryBuilder('l')
+        -> innerJoin('l.game', 'g')
+        -> orderBy('l.gameTime', 'DESC')
+        ->setMaxResults(9)
+        -> getQuery() -> getResult();
+    }
 }
