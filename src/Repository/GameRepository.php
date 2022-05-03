@@ -50,7 +50,18 @@ class GameRepository extends ServiceEntityRepository
         return $this -> createQueryBuilder('g')
         -> join(Library::class, 'lib', Join::WITH, 'lib.game = g')
         -> groupBy('g.name')
-        -> orderBy('SUM(lib.gameTime', 'DESC')
+        -> orderBy('SUM(lib.gameTime)', 'DESC')
+        -> setMaxResults($limit)
+        -> getQuery() -> getResult();
+    }
+
+    // Les 9 jeux les plus achetés (3 par lignes), sous le label : "Les plus vendus" /!\
+    public function getMostBoughtGames($limit = 9)
+    {
+        return $this -> createQueryBuilder('g')
+        -> join(Library::class, 'lib', Join::WITH, 'lib.game =g')
+        -> groupBy('g.name')
+        -> orderBy('COUNT(g.id)','DESC')
         -> setMaxResults($limit)
         -> getQuery() -> getResult();
     }

@@ -24,6 +24,7 @@ class HomeController extends AbstractController
             'lastGames' => $this->gameRepository->findLastGames(),
             'lastComments' => $this -> commentRepository -> lastComments(),
             'mostPlayedGames' => $this -> gameRepository -> getMostPlayedGames(),
+            'mostBoughtGames' => $this -> gameRepository -> getMostBoughtGames(),
         ]);
     }
 
