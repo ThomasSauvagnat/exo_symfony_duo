@@ -37,6 +37,7 @@ class CommentRepository extends ServiceEntityRepository
     {
         return $this -> createQueryBuilder('c')
         -> innerJoin('c.account', 'a')
+        -> join('c.game', 'g')
         -> orderBy('c.createdAt', 'DESC')
         -> setMaxResults(4)
         -> getQuery() -> getResult();

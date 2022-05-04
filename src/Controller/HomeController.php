@@ -23,7 +23,8 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig', [
             // Simple findBy avec les bon paramètres (pour requêtes assez simple)
             'lastGames' => $this->gameRepository->findBy([], ['publishedAt' => 'DESC'], 9),
-            'lastComments' => $this -> commentRepository -> findBy([], ['createdAt' => 'DESC'], 4),
+            // 'lastComments' => $this -> commentRepository -> findBy([], ['createdAt' => 'DESC'], 4),
+            'lastComments' => $this -> commentRepository -> lastComments(),
             'mostPlayedGames' => $this -> gameRepository -> getMostPlayedGames(),
             'mostBoughtGames' => $this -> gameRepository -> getMostBoughtGames(),
         ]);
