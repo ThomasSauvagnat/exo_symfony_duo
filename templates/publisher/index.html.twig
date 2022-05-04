@@ -5,6 +5,7 @@
 {% block body %}
 
     <div class="container">
+    <div class="mt-5 pt-5"></div>
         <h2>Les éditeurs</h2>
         <div class="row mx-auto">
             <div class="col-lg-1">
@@ -24,13 +25,13 @@
                 <div class="col-lg-1">
                     <img src="{{ publisher.country.urlFlag }}">
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-4 text-white">
                     {{ publisher.name }}
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-4 text-white">
                     {{ publisher.website }}
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-3 text-white">
                     {{ publisher.games|length }}
                 </div>
             </div>
