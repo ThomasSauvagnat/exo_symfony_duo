@@ -1,5 +1,7 @@
 .cardGame{
     position: relative;
+    width: 300px;
+    margin: 0 auto;
 
     img{
         width: 100%;
@@ -9,7 +11,7 @@
 
     .description{
         overflow: hidden;
-        width: 94%;
+        width: 92%;
         height: 0;
         background-color: rgba(43, 37, 37, 0.514);
         color: white;
@@ -22,7 +24,7 @@
 
     &:hover{
         .description{
-            height: 100%;
+            height: 91%;
             opacity: 1;
         }
     }

@@ -12,7 +12,7 @@
     <h2>Les dernières sorties</h2>
         <div class="row">
             {% for game in lastGames %}
-                <div class="col-md-4 text-center cardGame">
+                <div class="col-md-4 text-center cardGame my-3">
                     {% block card %}
                         {% include './card/_card.html.twig' %}
                     {% endblock %}
@@ -23,7 +23,7 @@
     <h2>Les plus joués</h2>
         <div class="row">
             {% for game in mostPlayedGames %}
-                <div class="col-md-4 text-center cardGame">
+                <div class="col-md-4 text-center cardGame my-3">
                     {% block card2 %}
                         {% include './card/_card.html.twig' %}
                     {% endblock %}
@@ -34,7 +34,7 @@
     <h2>Les plus vendus</h2>
         <div class="row">
             {% for game in mostBoughtGames %}
-                <div class="col-md-4 text-center cardGame">
+                <div class="col-md-4 text-center cardGame my-3">
                     {% block card3 %}
                         {% include './card/_card.html.twig' %}
                     {% endblock %}
