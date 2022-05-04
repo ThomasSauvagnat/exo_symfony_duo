@@ -25,7 +25,7 @@
 
     &:hover{
         .description{
-            height: 91%;
+            height: 92%;
             opacity: 1;
         }
         cursor: pointer;
@@ -43,5 +43,28 @@
         font-weight: bold;
         z-index: 100;
         border-radius: 15%;
+    }
+}
+
+.cardComment {
+    height: 230px;
+    background-color: $bgCommentColor;
+    p {
+        color: $paragraphColorComment;
+    }
+    h4 {
+        a {
+            color: $titleComment;
+            &:hover {
+                color: lighten($color: $titleComment, $amount: 10);
+            }
+        }
+    }
+    span {
+        color: $userComment;
+        font-weight: bold;
+        &:hover {
+            color: lighten($color: $userComment, $amount: 10);
+        }
     }
 }

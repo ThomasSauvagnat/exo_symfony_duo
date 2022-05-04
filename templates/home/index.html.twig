@@ -34,10 +34,12 @@
     <h2>Les derniers commentaires</h2>
         <div class="row">
             {% for comment in lastComments %}
-                <div class="col-md-4">
-                    <h5>{{comment.game.name}} </h5>
-                    <p>{{comment.content|slice(0, 100) ~ '...' }} </p>
-                    <p>Le {{comment.createdAt | date("m/d/Y") }}, par {{comment.account.name}} </p>
+                <div class="col-md-3">
+                    <div class="cardComment p-3 rounded">
+                        <h4><a class="text-decoration-none" href="">{{comment.game.name}}</a></h4>
+                        <p>{{comment.content|slice(0, 100) ~ '...' }} </p>
+                        <p>Le {{comment.createdAt | format_datetime('full', 'none', locale='fr') }}, par <a href="" class="text-decoration-none"><span>{{comment.account.name}}</span></a> </p>
+                    </div>
                 </div>
             {% endfor %}
         </div>
