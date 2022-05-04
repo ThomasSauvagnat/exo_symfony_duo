@@ -11,6 +11,7 @@
 
     .description{
         overflow: hidden;
+        padding: 2rem 1rem;
         width: 92%;
         height: 0;
         background-color: rgba(43, 37, 37, 0.514);
@@ -24,18 +25,46 @@
 
     &:hover{
         .description{
-            height: 91%;
+            height: 92%;
             opacity: 1;
         }
+        cursor: pointer;
     }
 
     .price{
         position: absolute;
         left: 0;
         bottom: 10%;
-        width: 20%;
-        background-color: orangered;
+        width: 25%;
+        padding: 0.5rem;
+        background-color: $priceBackGround;
+        color: $priceColor;
+        font-size: 1.1rem;
+        font-weight: bold;
         z-index: 100;
-        border-radius: 5%;
+        border-radius: 15%;
+    }
+}
+
+.cardComment {
+    height: 230px;
+    background-color: $bgCommentColor;
+    p {
+        color: $paragraphColorComment;
+    }
+    h4 {
+        a {
+            color: $titleComment;
+            &:hover {
+                color: lighten($color: $titleComment, $amount: 10);
+            }
+        }
+    }
+    span {
+        color: $userComment;
+        font-weight: bold;
+        &:hover {
+            color: lighten($color: $userComment, $amount: 10);
+        }
     }
 }

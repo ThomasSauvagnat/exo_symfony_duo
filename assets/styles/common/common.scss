@@ -1,9 +1,18 @@
 
 body {
-  background-color: antiquewhite;
+  background-color: #272727;
 }
 
 h2 {
+  color: $globalColor;
   padding-top: 2rem;
   padding-bottom: 2rem;
+}
+
+p {
+  color: $globalColor;
+}
+
+h5 {
+  color: $globalColor;
 }

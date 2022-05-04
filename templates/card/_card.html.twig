@@ -4,6 +4,6 @@
     <p class="price">{{game.price}} €</p>
 
 <div class="description">
-    <p>{{game.description}}</p>
+    <p>{{game.description|slice(0,200) ~ '...'}}</p>
     <a href="{{ path('app_game_details', {'slug': game.slug}) }}" class="btn btn-primary">Détails</a>
 </div>
