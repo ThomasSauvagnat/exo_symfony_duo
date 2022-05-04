@@ -4,6 +4,6 @@
     <p class="price">{{game.price}} €</p>
 
 <div class="description">
-    <p>{{game.description}}</p>
+    <p>{{game.description|slice(0,200) ~ '...'}}</p>
     <a href="#" class="btn btn-primary">Détails</a>
 </div>
