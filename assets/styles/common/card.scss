@@ -9,7 +9,7 @@
 
     .description{
         overflow: hidden;
-        width: 95%;
+        width: 94%;
         height: 0;
         background-color: rgba(43, 37, 37, 0.514);
         position: absolute;
@@ -28,7 +28,7 @@
     .price{
         position: absolute;
         left: 0;
-        top: 0;
+        bottom: 10%;
         width: 20%;
         background-color: orangered;
         z-index: 100;
