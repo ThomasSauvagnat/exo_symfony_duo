@@ -47,7 +47,7 @@
             {% for comment in lastComments %}
                 <div class="col-md-4">
                     <h5>{{comment.game.name}} </h5>
-                    <p>{{comment.content}} </p>
+                    <p>{{comment.content|slice(0, 100) ~ '...' }} </p>
                     <p>Le {{comment.createdAt | date("m/d/Y") }}, par {{comment.account.name}} </p>
                 </div>
             {% endfor %}
