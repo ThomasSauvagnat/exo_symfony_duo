@@ -11,10 +11,16 @@
     {% endfor %} #}
 
     <div class="container">
+
         <div class="row">
             <div class="col-md-6">
-                <div>
+                <div class="thumbnailCover">
                     <img src="{{ gameDetails.thumbnailCover }}" alt="">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div>
+                    {{gameDetails.name}}
                 </div>
             </div>
         </div>
