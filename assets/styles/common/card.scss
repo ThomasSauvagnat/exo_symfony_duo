@@ -1,10 +1,10 @@
 .cardGame{
     position: relative;
-    color: white;
 
     img{
         width: 100%;
         height: 350px;
+        border-radius: 5%;
     }
 
     .description{
@@ -12,10 +12,12 @@
         width: 94%;
         height: 0;
         background-color: rgba(43, 37, 37, 0.514);
+        color: white;
         position: absolute;
         top: 0;
         opacity: 0;
         transition: 1s all;
+        border-radius: 5%;
     }
 
     &:hover{
