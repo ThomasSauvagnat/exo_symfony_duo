@@ -10,15 +10,47 @@
     <div class="container">
 
     <h2>Les dernières sorties</h2>
-
         <div class="row">
             {% for game in lastGames %}
-                <div class="col-md-4 text-center">
+                <div class="col-md-4 text-center cardGame">
                     {% block card %}
                         {% include './card/_card.html.twig' %}
                     {% endblock %}
                 </div>
             {% endfor %}
         </div>
+
+    <h2>Les plus joués</h2>
+        <div class="row">
+            {% for game in mostPlayedGames %}
+                <div class="col-md-4 text-center cardGame">
+                    {% block card2 %}
+                        {% include './card/_card.html.twig' %}
+                    {% endblock %}
+                </div>
+            {% endfor %}
+        </div>
+
+    <h2>Les plus vendus</h2>
+        <div class="row">
+            {% for game in mostBoughtGames %}
+                <div class="col-md-4 text-center cardGame">
+                    {% block card3 %}
+                        {% include './card/_card.html.twig' %}
+                    {% endblock %}
+                </div>
+            {% endfor %}
+        </div>
+
+    <h2>Les derniers commentaires</h2>
+        <div class="row">
+            {% for comment in lastComments %}
+                <div class="col-md-4 text-center ">
+                    <p>{{comment.content}} </p>
+                    <p>Le {{comment.createdAt | date("m/d/Y") }}, par {{comment.id}} </p>
+                </div>
+            {% endfor %}
+        </div>
+
     </div>
 {% endblock %}
