@@ -36,7 +36,7 @@
             {% for comment in lastComments %}
                 <div class="col-md-3">
                     <div class="cardComment p-3 rounded">
-                        <h4><a class="text-decoration-none" href="">{{comment.game.name}}</a></h4>
+                        <h4><a class="text-decoration-none" href="{{ path('app_game_details', {'slug': comment.game.slug}) }}">{{comment.game.name}}</a></h4>
                         <p>{{comment.content|slice(0, 100) ~ '...' }} </p>
                         <p>Le {{comment.createdAt | format_datetime('full', 'none', locale='fr') }}, par <a href="" class="text-decoration-none"><span>{{comment.account.name}}</span></a> </p>
                     </div>
