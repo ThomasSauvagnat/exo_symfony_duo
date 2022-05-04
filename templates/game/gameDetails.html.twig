@@ -1,9 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{game.name}}{% endblock %}
+{# {% block title %}{{game.name}}{% endblock %} #}
 
 {% block body %}
+    {# 
+    {{gameDetails.name}}
 
+    {% for countrie in  gameDetails.countries %}
+        {{countrie.name}}
+    {% endfor %} #}
 
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div>
+                    <img src="{{ gameDetails.thumbnailCover }}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
