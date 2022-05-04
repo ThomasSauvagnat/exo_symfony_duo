@@ -83,4 +83,31 @@ class GameRepository extends ServiceEntityRepository
         -> setMaxResults($limit)
         -> getQuery() -> getResult();
     }
+
+
+    // On fait un join lorsqu'on veut accéder à des propriétés d'une entité 
+    // 2 cas : 
+    // - Si on a directement notre entité en propriété, on passe par un join normal => -> join('g.countries', 'c') => propriété inversedBy
+    // - Si notre entité à join n'est pas directement en tant que propriété ==> -> join(Library::class, 'lib', Join::WITH, 'lib.game =g')
+    // -> select('g', 'c', 'genre', 'comment', 'p')  ==> selectionne toutes les propriétés de notre entité visé 
+    // -> leftJoin('g.comments', 'comment')  ==> permet de gérer le cas ou certaines valeurs peuvent être null
+    // -> getOneOrNullResult();  ==> permet de récupérer un objet et non un tableau d'objet
+    // Dans le twig, on aura accès à toutes les propriétés des entités countries, genre, comment et publisher
+
+    public function getGameDetails($slug)
+    {
+        return $this -> createQueryBuilder('g')
+        -> select('g', 'c', 'genre', 'comment', 'p')
+        -> join('g.countries', 'c')
+        -> join('g.genres', 'genre')
+        -> leftJoin('g.comments', 'comment')
+        -> leftJoin('g.publisher', 'p')
+        -> andWhere('g.slug = :game_slug')
+        -> setParameter('game_slug', $slug)
+        -> orderBy('comment.createdAt', 'DESC')
+        -> getQuery() 
+        -> getOneOrNullResult();
+    }
+
+
 }

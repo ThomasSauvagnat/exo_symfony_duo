@@ -5,5 +5,5 @@
 
 <div class="description">
     <p>{{game.description}}</p>
-    <a href="#" class="btn btn-primary">Détails</a>
+    <a href="{{ path('app_game_details', {'slug': game.slug}) }}" class="btn btn-primary">Détails</a>
 </div>
