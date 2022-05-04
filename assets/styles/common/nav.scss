@@ -2,4 +2,22 @@ nav {
     background-image: linear-gradient(to bottom, #272727, rgb(255, 102, 0));
     opacity: 0.9;
     height: 100px;
+    a {
+        position: relative;
+        letter-spacing: 0.5px;
+    }
+    a::after {
+        content: "";
+        position: absolute;
+        background-color: black;
+        height: 3px;
+        width: 0;
+        left: 0;
+        bottom: -2px;
+        transition: 0.3s;
+    }
+    a:hover:after {
+        width: 100%;
+
+    }
 }
