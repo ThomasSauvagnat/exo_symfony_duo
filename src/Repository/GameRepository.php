@@ -45,6 +45,7 @@ class GameRepository extends ServiceEntityRepository
         ;
     }
 
+    // use Doctrine\ORM\Query\Expr\Join; <- c'est celui-ci qu'il faut importer
     public function getMostPlayedGames($limit = 9)
     {
         return $this -> createQueryBuilder('g')

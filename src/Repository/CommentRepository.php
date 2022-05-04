@@ -36,6 +36,7 @@ class CommentRepository extends ServiceEntityRepository
     public function lastComments()
     {
         return $this -> createQueryBuilder('c')
+        -> innerJoin('c.account', 'a')
         -> orderBy('c.createdAt', 'DESC')
         -> setMaxResults(4)
         -> getQuery() -> getResult();
