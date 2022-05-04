@@ -49,6 +49,7 @@ class GameRepository extends ServiceEntityRepository
     public function getMostPlayedGames($limit = 9)
     {
         return $this -> createQueryBuilder('g')
+        // Lors d'une relation unilatéral (ici, library non présente dans game mais game présent dans library)
         -> join(Library::class, 'lib', Join::WITH, 'lib.game = g')
         -> groupBy('g.name')
         -> orderBy('SUM(lib.gameTime)', 'DESC')
@@ -63,6 +64,22 @@ class GameRepository extends ServiceEntityRepository
         -> join(Library::class, 'lib', Join::WITH, 'lib.game =g')
         -> groupBy('g.name')
         -> orderBy('COUNT(g.id)','DESC')
+        -> setMaxResults($limit)
+        -> getQuery() -> getResult();
+    }
+
+    // Fonction optimisée des 2 fonctions d'au-dessus
+    /**
+     * @param string $orderBy une chaîne de caractère sur laquelle trier nos jeux
+     * @param string $descAsc L'ordre du trie (par défaut DESC)
+     * @param int|null $limit le nombre de jeux à récupérer (par défaut 9)
+     */
+    public function getMostGameByOrderBy(string $orderBy, string $descAsc = 'DESC', ?int $limit = 9)
+    {
+        return $this -> createQueryBuilder('g')
+        -> join(Library::class, 'lib', Join::WITH, 'lib.game =g')
+        -> groupBy('g.name')
+        -> orderBy($orderBy, $descAsc)
         -> setMaxResults($limit)
         -> getQuery() -> getResult();
     }
