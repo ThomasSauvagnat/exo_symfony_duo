@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AccountController!{% endblock %}
+{% block title %}{{ accountDetails.name }}{% endblock %}
 
 {% block body %}
 
@@ -11,8 +11,8 @@
     <h2>Librairie :</h2>
         <div class="row">
             {% for library in accountDetails.libraries %}
-            <div class="col-md-3 text-center">
-                <h4>{{library.game.name}}</h4>
+            <div class="col-md-4 text-center">
+                <h4>{{library.game.name}} </h4><i class="fa-solid fa-circle {% if library.installed == true %}green{% else %}red{% endif %}"></i>
                 <p>Temps de jeu : {{library.gameTime|time_to_string }}</p>
                 <p>Dernière utilisation : {{library.lastUsedAt|format_datetime('short', 'none', locale='fr')}}</p>
                 <p>Installé : {% if library.installed %} Oui {% else %} Non {% endif %}</p>
@@ -26,10 +26,12 @@
     <h2>Commentaires de {{ accountDetails.name }} :</h2>
         <div class="row">
             {% for comment in accountDetails.comments|slice(0,4) %}
-            <div class="col-md-3 text-center">
-                <h4><a class="text-decoration-none" href="{{ path('app_game_details', {'slug': comment.game.slug}) }}">{{comment.game.name}}</a></h4>
-                <p>{{comment.content}} </p>
-                <p>Le {{comment.createdAt | format_datetime('full', 'none', locale='fr') }}
+            <div class="text-center">
+                <div>
+                    <h4><a class="text-decoration-none" href="{{ path('app_game_details', {'slug': comment.game.slug}) }}">{{comment.game.name}}</a></h4>
+                    <p>{{comment.content}} </p>
+                    <p>Le {{comment.createdAt | format_datetime('full', 'none', locale='fr') }}
+                </div>
             </div>
             {% endfor %}
             <div class="text-center">
