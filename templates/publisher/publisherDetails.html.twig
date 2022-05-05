@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}  {% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="thumbnailCover">
+                <img src="{{ gameDetails.thumbnailCover }}" alt="">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div>
+                <h2>{{gameDetails.name}}</h2>
+                <h3>Description</h3>
+                <p>{{gameDetails.description}}</p>
+                <h3>Genres</h3>
+                <p>
+                    {% for genre in  gameDetails.genres %}
+                        {{genre.name}} 
+                    {% endfor %}
+                </p>
+                <h3>Langues</h3>
+                <p>
+                    {% for countrie in  gameDetails.countries %}
+                        
+                        <img src="{{countrie.urlFlag}}" alt="">
+                    {% endfor %}
+                </p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
