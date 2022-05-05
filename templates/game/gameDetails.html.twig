@@ -3,12 +3,6 @@
 {# {% block title %}{{game.name}}{% endblock %} #}
 
 {% block body %}
-    {# 
-    {{gameDetails.name}}
-
-    {% for countrie in  gameDetails.countries %}
-        {{countrie.name}}
-    {% endfor %} #}
 
     <div class="container">
 
@@ -45,8 +39,10 @@
                 {% for comment in  gameDetails.comments | slice(0, 6) %}
                     <p>{{comment.createdAt |format_datetime('full', 'none', locale='fr')}}</p>
                     <p>{{comment.content}}</p>
-                    <p><a href="">{{comment.account.name}}</a></p>
+                    <p><a href="{{ path('app_account_details', {'name': comment.account.name}) }}">{{comment.account.name}}</a></p>
+                    <hr>
                 {% endfor %}
+                <a href="{{ path('app_game_comments', {'slug': gameDetails.slug}) }}" class="btn btn-primary">Voir tout</a>
             </div>
         </div>
     </div>

@@ -111,5 +111,44 @@ class GameRepository extends ServiceEntityRepository
         -> getOneOrNullResult();
     }
 
+    // Afficher tous les commentaires d'un jeu
+    public function getGameComment($slug)
+    {
+        return $this -> createQueryBuilder('g')
+        -> select('g', 'comment', 'a')
+        -> leftJoin('g.comments', 'comment')
+        -> join('comment.account', 'a')
+        -> andWhere('g.slug = :game_slug')
+        -> setParameter('game_slug', $slug)
+        -> orderBy('comment.createdAt', 'DESC')
+        -> getQuery() 
+        -> getOneOrNullResult();
+    }
 
+
+    // #### version optitmisé qui permet de réaliser des join en fonction de ce que l'on souhaite récupérer 
+
+    // public function getGameDetails(string $slug, bool $fullJoin = true): ?Game
+    // {
+    //     $qb = $this -> createQueryBuilder('g')
+    //     -> leftJoin('g.comments', 'comment');
+
+    //     if ($fullJoin) {
+    //         $qb
+    //         -> select('g', 'c', 'genre', 'comment', 'p', 'a')
+    //         -> join('g.countries', 'c')
+    //         -> join('g.genres', 'genre')
+    //         -> join('comment.account', 'a')
+    //         -> leftJoin('g.publisher', 'p');
+    //     } else {
+    //         $qb-> select('g','comment');
+    //     }
+
+    //     return $qb
+    //     -> andWhere('g.slug = :game_slug')
+    //     -> setParameter('game_slug', $slug)
+    //     -> orderBy('comment.createdAt', 'DESC')
+    //     -> getQuery() 
+    //     -> getOneOrNullResult();
+    // }
 }
