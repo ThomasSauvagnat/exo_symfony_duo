@@ -45,6 +45,14 @@
                 <a href="{{ path('app_game_comments', {'slug': gameDetails.slug}) }}" class="btn btn-primary">Voir tout</a>
             </div>
         </div>
+        <div class="row my-5">
+            <h3>Jeux similaires </h3>
+            {% for game in  gameRelated | slice(0, 3) %}
+                <div class="col-md-4 text-center cardGame my-3">
+                    {% include './card/_card.html.twig' %}
+                </div>
+            {% endfor %}
+        </div>
     </div>
 
 {% endblock %}
