@@ -20,8 +20,33 @@
             </div>
             <div class="col-md-6">
                 <div>
-                    {{gameDetails.name}}
+                    <h2>{{gameDetails.name}}</h2>
+                    <h3>Description</h3>
+                    <p>{{gameDetails.description}}</p>
+                    <h3>Genres</h3>
+                    <p>
+                        {% for genre in  gameDetails.genres %}
+                            {{genre.name}} 
+                        {% endfor %}
+                    </p>
+                    <h3>Langues</h3>
+                    <p>
+                        {% for countrie in  gameDetails.countries %}
+                            
+                            <img src="{{countrie.urlFlag}}" alt="">
+                        {% endfor %}
+                    </p>
                 </div>
+            </div>
+        </div>
+        <div class="row my-5">
+            <div class="col-md-12">
+                <h3>Commentaires </h3>
+                {% for comment in  gameDetails.comments | slice(0, 6) %}
+                    <p>{{comment.createdAt |format_datetime('full', 'none', locale='fr')}}</p>
+                    <p>{{comment.content}}</p>
+                    <p><a href="">{{comment.account.name}}</a></p>
+                {% endfor %}
             </div>
         </div>
     </div>

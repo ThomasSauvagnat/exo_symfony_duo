@@ -93,15 +93,17 @@ class GameRepository extends ServiceEntityRepository
     // -> leftJoin('g.comments', 'comment')  ==> permet de gérer le cas ou certaines valeurs peuvent être null
     // -> getOneOrNullResult();  ==> permet de récupérer un objet et non un tableau d'objet
     // Dans le twig, on aura accès à toutes les propriétés des entités countries, genre, comment et publisher
+    // -> join('comment.account', 'a') => permet lier la table account à la table comment pour récupérer le nom des personnes qui poste des commantaires
 
     public function getGameDetails($slug)
     {
         return $this -> createQueryBuilder('g')
-        -> select('g', 'c', 'genre', 'comment', 'p')
+        -> select('g', 'c', 'genre', 'comment', 'p', 'a')
         -> join('g.countries', 'c')
         -> join('g.genres', 'genre')
         -> leftJoin('g.comments', 'comment')
         -> leftJoin('g.publisher', 'p')
+        -> join('comment.account', 'a')
         -> andWhere('g.slug = :game_slug')
         -> setParameter('game_slug', $slug)
         -> orderBy('comment.createdAt', 'DESC')
