@@ -48,5 +48,17 @@ class PublisherRepository extends ServiceEntityRepository
         ;
     }
 
+    public function getPublisher($slug) {
+        return $this->createQueryBuilder('p')
+            ->select('p', 'country', 'games')
+            ->join('p.country', 'country')
+            ->join('p.games', 'games')
+            ->where('p.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
 
 }
