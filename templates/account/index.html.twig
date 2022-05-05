@@ -4,10 +4,10 @@
 
 {% block body %}
 
-<h1>Utilisateur : {{ accountDetails.name }}</h1>
-<p>Temps de jeu total : {{accountTotalGameTime[1] |time_to_string }}</p>
-
 <div class="container">
+    <h1>Utilisateur : {{ accountDetails.name }}</h1>
+    <p>Temps de jeu total : {{accountTotalGameTime[1] |time_to_string }}</p>
+
     <h2>Librairie :</h2>
         <div class="row">
             {% for library in accountDetails.libraries %}
@@ -20,9 +20,7 @@
             </div>
             {% endfor %}
         </div>
-</div>
-
-<div class="container">
+    
     <h2>Commentaires de {{ accountDetails.name }} :</h2>
         <div class="row">
             {% for comment in accountDetails.comments|slice(0,4) %}
@@ -38,5 +36,6 @@
                 <a href="{{ path('app_account_comments', {'name': accountDetails.name }) }}"><button class="btn btn-secondary">Voir tout</button></a>
             </div>
         </div>
+    </div>
 </div>
 {% endblock %}

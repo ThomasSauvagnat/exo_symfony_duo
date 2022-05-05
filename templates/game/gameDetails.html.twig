@@ -37,10 +37,15 @@
             <div class="col-md-12">
                 <h3>Commentaires </h3>
                 {% for comment in  gameDetails.comments | slice(0, 6) %}
-                    <p>{{comment.createdAt |format_datetime('full', 'none', locale='fr')}}</p>
+                    {# <p>Le {{comment.createdAt |format_datetime('full', 'none', locale='fr')}}
+                        par 
+                        <a href="{{ path('app_account_details', {'name': comment.account.name}) }}">{{comment.account.name}}
+                        </a>
+                    </p>
                     <p>{{comment.content}}</p>
-                    <p><a href="{{ path('app_account_details', {'name': comment.account.name}) }}">{{comment.account.name}}</a></p>
-                    <hr>
+                    <hr> #}
+                    {% include "./comment/_comment.html.twig" %}
+
                 {% endfor %}
                 <a href="{{ path('app_game_comments', {'slug': gameDetails.slug}) }}" class="btn btn-primary">Voir tout</a>
             </div>
