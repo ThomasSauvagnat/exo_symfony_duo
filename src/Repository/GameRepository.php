@@ -125,6 +125,21 @@ class GameRepository extends ServiceEntityRepository
         -> getOneOrNullResult();
     }
 
+    // Afficher les jeux avec un genre similaire
+    public function getRelatedGames(Game $game)
+    {
+        return $this -> createQueryBuilder('g')
+        -> select('g', 'genres')
+        -> join('g.genres', 'genres')
+        -> Where('genres IN (:game_genres)')
+        -> setParameter('game_genres', $game->getGenres())
+        -> andWhere('g != :currentGame')
+        -> setParameter('currentGame', $game)
+        -> orderBy('g.publishedAt', 'DESC')
+        -> getQuery() 
+        -> getResult();
+    }
+
 
     // #### version optitmisé qui permet de réaliser des join en fonction de ce que l'on souhaite récupérer 
 
