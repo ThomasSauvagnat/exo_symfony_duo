@@ -9,11 +9,17 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AccountController extends AbstractController
 {
-    #[Route('/utilisateur/{name}', name: 'app_account_details')]
-    public function index($name, AccountRepository $accountRepository): Response
+    public function __construct(private AccountRepository $accountRepository)
     {
+        
+    }
+
+    #[Route('/utilisateur/{name}', name: 'app_account_details')]
+    public function index($name): Response
+    {
+        // dd($this -> accountRepository -> getAccountDetails($name));
         return $this->render('account/index.html.twig', [
-            'accountDetails' => $accountRepository -> getAccountDetails($name),
+            'accountDetails' => $this -> accountRepository -> getAccountDetails($name),
         ]);
     }
 }
