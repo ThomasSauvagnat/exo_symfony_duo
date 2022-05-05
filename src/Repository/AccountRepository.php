@@ -35,11 +35,13 @@ class AccountRepository extends ServiceEntityRepository
 
     public function getAccountDetails($name) {
         return $this -> createQueryBuilder('a')
+        -> select('a', 'l', 'g', 'c')
         -> join('a.libraries', 'l')
+        -> join('l.game', 'g')
         -> leftjoin('a.comments', 'c')
         -> where('a.name = :name')
         -> setParameter('name', $name)
-        -> getQuery() -> getResult();
+        -> getQuery() -> getOneOrNullResult();
     }
 
 }
