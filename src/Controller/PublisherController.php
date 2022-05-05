@@ -18,10 +18,10 @@ class PublisherController extends AbstractController
     }
 
     #[Route('/editeur/{slug}', name: 'app_publisher_details')]
-    public function show(PublisherRepository $publisherRepository): Response
+    public function show($slug, PublisherRepository $publisherRepository): Response
     {
         return $this->render('publisher/publisherDetails.html.twig', [
-            'publishers' => $publisherRepository->getPublishersAll()
+            'publisher' => $publisherRepository->getPublisher($slug),
         ]);
     }
 }

@@ -1,37 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}  {% endblock %}
+{% block title %} {{publisher.name}} {% endblock %}
 
 {% block body %}
 
 <div class="container">
-
     <div class="row">
-        <div class="col-md-6">
-            <div class="thumbnailCover">
-                <img src="{{ gameDetails.thumbnailCover }}" alt="">
+        <div class="text-center">
+            <div class="col-md-12 mt-5">
+                {{publisher.name}}
+            </div>
+            <div class="col-md-12 mt-3">
+                <a href="{{publisher.website}}">{{publisher.website}}</a>
+            </div>
+            <div class="col-md-12 mt-3 mb-3">
+                <img src="{{publisher.country.urlFlag}}"></img>
             </div>
         </div>
-        <div class="col-md-6">
-            <div>
-                <h2>{{gameDetails.name}}</h2>
-                <h3>Description</h3>
-                <p>{{gameDetails.description}}</p>
-                <h3>Genres</h3>
-                <p>
-                    {% for genre in  gameDetails.genres %}
-                        {{genre.name}} 
-                    {% endfor %}
-                </p>
-                <h3>Langues</h3>
-                <p>
-                    {% for countrie in  gameDetails.countries %}
-                        
-                        <img src="{{countrie.urlFlag}}" alt="">
-                    {% endfor %}
-                </p>
+        {% for game in publisher.games %}
+            <div class="col-md-4 text-center cardGame my-3">
+            {% include "./card/_card.html.twig" %}
             </div>
-        </div>
+        {% endfor %}
     </div>
+</div>
 
 {% endblock %}
