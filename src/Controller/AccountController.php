@@ -18,8 +18,10 @@ class AccountController extends AbstractController
     public function index($name): Response
     {
         // dd($this -> accountRepository -> getAccountDetails($name));
+        // dd($this -> accountRepository -> getTotalGameTime());
         return $this->render('account/index.html.twig', [
             'accountDetails' => $this -> accountRepository -> getAccountDetails($name),
+            'accountTotalGameTime' => $this -> accountRepository -> getTotalGameTime($name),
         ]);
     }
 }

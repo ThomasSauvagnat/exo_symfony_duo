@@ -44,4 +44,14 @@ class AccountRepository extends ServiceEntityRepository
         -> getQuery() -> getOneOrNullResult();
     }
 
+    public function getTotalGameTime($name)
+    {
+        return $this -> createQueryBuilder('a')
+        -> select('SUM(l.gameTime)')
+        -> join('a.libraries', 'l')
+        -> where('a.name = :name')
+        -> setParameter('name', $name)
+        -> getQuery() -> getOneOrNullResult();
+    }
+
 }
