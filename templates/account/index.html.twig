@@ -5,7 +5,7 @@
 {% block body %}
 
 <h1>Utilisateur : {{ accountDetails.name }}</h1>
-<p>Temps de jeu total : {{accountTotalGameTime[1]}}</p>
+<p>Temps de jeu total : {{accountTotalGameTime[1] |time_to_string }}</p>
 
 <div class="container">
     <h2>Librairie :</h2>
@@ -13,7 +13,7 @@
             {% for library in accountDetails.libraries %}
             <div class="col-md-3 text-center">
                 <h4>{{library.game.name}}</h4>
-                <p>Temps de jeu : {{library.gameTime}}</p>
+                <p>Temps de jeu : {{library.gameTime|time_to_string }}</p>
                 <p>Dernière utilisation : {{library.lastUsedAt|format_datetime('short', 'none', locale='fr')}}</p>
                 <p>Installé : {% if library.installed %} Oui {% else %} Non {% endif %}</p>
                 <img src="{{library.game.thumbnailCover}}" style="width:100px;height:150x">
