@@ -4,10 +4,10 @@
 
 {% block body %}
 
-<h1>Utilisateur : {{ accountDetails.name }}</h1>
-<p>Temps de jeu total : {{accountTotalGameTime[1] |time_to_string }}</p>
-
 <div class="container">
+    <h1>Utilisateur : {{ accountDetails.name }}</h1>
+    <p>Temps de jeu total : {{accountTotalGameTime[1] |time_to_string }}</p>
+
     <h2>Librairie :</h2>
         <div class="row">
             {% for library in accountDetails.libraries %}
@@ -20,21 +20,19 @@
             </div>
             {% endfor %}
         </div>
-</div>
-
-<div class="container">
+    
     <h2>Commentaires de {{ accountDetails.name }} :</h2>
-        <div class="row">
-            {% for comment in accountDetails.comments|slice(0,4) %}
-            <div class="col-md-3 text-center">
-                <h4><a class="text-decoration-none" href="{{ path('app_game_details', {'slug': comment.game.slug}) }}">{{comment.game.name}}</a></h4>
-                <p>{{comment.content}} </p>
-                <p>Le {{comment.createdAt | format_datetime('full', 'none', locale='fr') }}
-            </div>
-            {% endfor %}
-            <div class="text-center">
-                <a href="{{ path('app_account_comments', {'name': accountDetails.name }) }}"><button class="btn btn-secondary">Voir tout</button></a>
-            </div>
+    <div class="row">
+        {% for comment in accountDetails.comments|slice(0,4) %}
+        <div class="col-md-3 text-center">
+            <h4><a class="text-decoration-none" href="{{ path('app_game_details', {'slug': comment.game.slug}) }}">{{comment.game.name}}</a></h4>
+            <p>{{comment.content}} </p>
+            <p>Le {{comment.createdAt | format_datetime('full', 'none', locale='fr') }}
         </div>
+        {% endfor %}
+        <div class="text-center">
+            <a href="{{ path('app_account_comments', {'name': accountDetails.name }) }}"><button class="btn btn-secondary">Voir tout</button></a>
+        </div>
+    </div>
 </div>
 {% endblock %}
