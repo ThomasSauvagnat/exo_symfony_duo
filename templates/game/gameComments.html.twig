@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{# {% block title %}{{game.name}}{% endblock %} #}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row my-5">
+            <div class="col-md-12">
+                <h3>Commentaires </h3>
+                {% for comment in  gameComment.comments %}
+                    <p>{{comment.createdAt |format_datetime('full', 'none', locale='fr')}}</p>
+                    <p>{{comment.content}}</p>
+                    <p><a href="{{ path('app_account_details', {'name': comment.account.name}) }}">{{comment.account.name}}</a></p>
+                    <hr>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
