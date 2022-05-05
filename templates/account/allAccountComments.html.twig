@@ -4,17 +4,17 @@
 
 {% block body %}
 
-<h1>Commentaires de l'utilisateur : {{ accountDetails.name }}</h1>
-
-<div class="container">
-    <h2>Commentaires de {{ accountDetails.name }} :</h2>
+<div class="container my-2">
+    <h1>Commentaires de l'utilisateur : {{ accountDetails.name }}</h1>
         <div class="row">
             {% for comment in accountDetails.comments %}
-            <div class="col-md-12 text-center">
+            <div class="col-md-12 ">
                 <div>
-                    <h4><a class="text-decoration-none" href="{{ path('app_game_details', {'slug': comment.game.slug}) }}">{{comment.game.name}}</a></h4>
+                    {# <h4><a class="text-decoration-none" href="{{ path('app_game_details', {'slug': comment.game.slug}) }}">{{comment.game.name}}</a></h4>
                     <p>{{comment.content}} </p>
-                    <p>Le {{comment.createdAt | format_datetime('full', 'none', locale='fr') }}
+                    <p>Le {{comment.createdAt | format_datetime('full', 'none', locale='fr') }} #}
+                    {% include "./comment/_comment.html.twig" %}
+
                 </div>
             </div>
             {% endfor %}

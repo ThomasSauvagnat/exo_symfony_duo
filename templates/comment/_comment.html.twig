@@ -1,7 +1,13 @@
 <p>Le {{comment.createdAt |format_datetime('full', 'none', locale='fr')}}
-    par 
-    <a href="{{ path('app_account_details', {'name': comment.account.name}) }}">{{comment.account.name}}
-    </a>
+    
+    {% if name is defined %}
+        <a href="{{ path('app_account_details', {'name': comment.account.name}) }}">{{comment.account.name}}
+        </a>
+    {% endif %}
+
+
+
+
 </p>
 <p>{{comment.content}}</p>
 <hr>

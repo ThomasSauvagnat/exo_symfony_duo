@@ -44,7 +44,11 @@
                     </p>
                     <p>{{comment.content}}</p>
                     <hr> #}
-                    {% include "./comment/_comment.html.twig" %}
+                    {% include "./comment/_comment.html.twig" with
+                        {
+                            'name': true,
+                        }
+                    %}
 
                 {% endfor %}
                 <a href="{{ path('app_game_comments', {'slug': gameDetails.slug}) }}" class="btn btn-primary">Voir tout</a>
