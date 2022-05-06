@@ -44,6 +44,8 @@
                     </p>
                     <p>{{comment.content}}</p>
                     <hr> #}
+
+                    {# Passe en paramètre un 'name' qui permet d'afficher le lien(nom d'utilsateur) dans notre fichier _comment car elle est définie  #}
                     {% include "./comment/_comment.html.twig" with
                         {
                             'name': true,

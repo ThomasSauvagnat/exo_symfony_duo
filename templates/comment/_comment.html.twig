@@ -1,5 +1,6 @@
 <p>Le {{comment.createdAt |format_datetime('full', 'none', locale='fr')}}
     
+    {# Si la variable name que l'on passe en paramètre de notre include est défini => j'affiche le a #}
     {% if name is defined %}
         <a href="{{ path('app_account_details', {'name': comment.account.name}) }}">{{comment.account.name}}
         </a>
