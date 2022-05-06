@@ -20,6 +20,14 @@
         </li>
       </ul>
     </div>
+
+    {# // Permet d'afficher le rendu d'une reponse d'un controller => affiche la navbar
+    Le nom du controller :: le nom de la fonction à utiliser
+    On veut afficher le resultat d'une fonction d'un controleur et non une route
+     #}
+    {{ render(controller(
+      'App\\Controller\\SearchController::index'
+    )) }}
   </div>
 </nav>
 <div class="mt-5 pt-5"></div>

@@ -141,6 +141,18 @@ class GameRepository extends ServiceEntityRepository
     }
 
 
+    // Afficher les jeux avec un genre similaire
+    public function getGameBySearch($gameSearch)
+    {
+        return $this -> createQueryBuilder('g')
+        -> select('g')
+        -> where('g.name LIKE :game_search')
+        -> setParameter('game_search', '%' .$gameSearch . '%')
+        -> getQuery() 
+        -> getResult();
+    }
+
+
     // #### version optitmisé qui permet de réaliser des join en fonction de ce que l'on souhaite récupérer 
 
     // public function getGameDetails(string $slug, bool $fullJoin = true): ?Game
