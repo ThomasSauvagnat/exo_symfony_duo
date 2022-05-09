@@ -33,6 +33,7 @@ class PublisherRepository extends ServiceEntityRepository
         }
     }
 
+
     /**
      * @return Publisher[]
      */
@@ -40,6 +41,7 @@ class PublisherRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('p')
             ->select('p', 'country', 'games')
             ->join('p.country', 'country')
+            // Pour afficher les editeurs qui on 0 jeux (null) il faut faire un leftJoin
             ->join('p.games', 'games')
             ->orderBy('p.name')
 //            ->setMaxResults(5)

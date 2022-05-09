@@ -9,7 +9,7 @@
         {% endblock %}
     </head>
     <body>
-        <header>
+        {# <header>
             {% block header %}
                 {% include 'navbar/_navbar.html.twig' %}
             {% endblock %}
@@ -19,7 +19,12 @@
         <footer>
             {% block footer %}
             {% endblock %}
-        </footer>
+        </footer> #}
+
+    {% block content %}
+        
+    {% endblock %}
+
     </body>
     <script>
         {% block javascripts %}

@@ -12,8 +12,14 @@ class PublisherController extends AbstractController
     #[Route('/editeur', name: 'app_publisher')]
     public function index(PublisherRepository $publisherRepository): Response
     {
+
+        $publishers = $publisherRepository->getPublishersAll();
+
+        $test = $publisherRepository->findAll();
+        dump($test);
+        dump($publishers);
         return $this->render('publisher/index.html.twig', [
-            'publishers' => $publisherRepository->getPublishersAll()
+            'publishers' => $publishers
         ]);
     }
 
