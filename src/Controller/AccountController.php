@@ -8,6 +8,7 @@ use App\Repository\AccountRepository;
 use DateTime;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,9 +16,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AccountController extends AbstractController
 {
-    public function __construct(private AccountRepository $accountRepository)
+    private PaginatorInterface $paginator;
+    private AccountRepository $accountRepository;
+
+    public function __construct(PaginatorInterface $paginator, AccountRepository $accountRepository)
     {
-        
+        $this->paginator = $paginator;
+        $this->accountRepository = $accountRepository;
     }
 
     // Attention à l'ordre des functions => si je la met dessous la fonction index, c'est la fonction index qui sera appelé car elle comment par utilisateur/et le slug comme il n'est pas défini peut être remplacé par nouveau => ne va pas su la bonne page
@@ -66,10 +71,19 @@ class AccountController extends AbstractController
 
 
     #[Route('/utilisateur/comptes', name: 'app_account_all')]
-    public function getAllAccounts(AccountRepository $accountRepository): Response
+    public function getAllAccounts( Request $request, AccountRepository $accountRepository): Response
     {
+        $qb = $this -> accountRepository -> getQbAll();
+
+        $pagination = $this -> paginator -> paginate(
+            $qb,
+            $request -> query -> getInt('page', 1),
+            15
+        );
+
         return $this->render('account/allAccount.html.twig', [
-            'allAccounts' => $accountRepository->findAll()
+            'allAccounts' => $accountRepository->findAll(),
+            'pagination' => $pagination
         ]);
     }
 

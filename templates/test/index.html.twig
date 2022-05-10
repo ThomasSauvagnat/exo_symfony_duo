@@ -3,14 +3,27 @@
 {% block title %}Hello TestController!{% endblock %}
 
 {% block body %}
-    {{form_start(form) }}
 
-        {# Ajouter les champs de notre PublisherType => on peut faire notre mise en page ici #}
-        {{ form_row(form.name) }}
-        {{ form_row(form.website) }}
-        {{ form_row(form.slug) }}
+    {#  Avoir le compte total d'item  #}
+    <h1>{{ pagination.getTotalItemCount }}</h1>
 
-        {# Ajouter un bouton submit #}
-        <button type="submit" class="btn btn-primary" >Valider</button>
-    {{form_end(form) }}
+    {% for account in pagination %}
+        <p>{{ account.name }}</p>
+    {% endfor %}
+
+    {#  Mise en place de la pagination  #}
+    <div class="pagination">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+
+    {#    {{form_start(form) }}#}
+
+{#        #}{# Ajouter les champs de notre PublisherType => on peut faire notre mise en page ici #}
+{#        {{ form_row(form.name) }}#}
+{#        {{ form_row(form.website) }}#}
+{#        {{ form_row(form.slug) }}#}
+
+{#        #}{# Ajouter un bouton submit #}
+{#        <button type="submit" class="btn btn-primary" >Valider</button>#}
+{#    {{form_end(form) }}#}
 {% endblock %}

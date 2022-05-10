@@ -16,7 +16,8 @@
             </tr>
         </thead>
         <tbody>
-                {% for account in allAccounts %}
+        {#allAccounts#}
+                {% for account in pagination %}
             <tr>
                 <td>{{account.name}}  <a href="{{ path('app_account_edit', {'slug': account.slug})  }}"><i class="fa-solid fa-pencil"></i></a></td>
                 <td>{{account.email}}</td>
@@ -24,6 +25,10 @@
                 <td>{{account.wallet}}</td>
             </tr>
                 {% endfor %}
+
+        <div class="pagination">
+            {{ knp_pagination_render(pagination) }}
+        </div>
 
         </tbody>
     </table>
