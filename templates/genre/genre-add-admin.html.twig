@@ -1,0 +1,18 @@
+{% extends 'base-admin.html.twig' %}
+
+{% form_theme form 'bootstrap_5_horizontal_layout.html.twig' %}
+
+{% block title %}Formulaire, ajout de genre{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h2>Formulaire d'ajout de genre</h2>
+        {{ form_start(form) }}
+            {{ form_row(form.name) }}
+            <button type="submit" class="btn btn-secondary">Valider</button>
+        {{ form_end(form) }}
+        <a href="{{ path('app_genre') }}"><button class="btn btn-secondary">Retour</button></a>
+    </div>
+
+{% endblock %}

@@ -57,9 +57,14 @@ class AccountRepository extends ServiceEntityRepository
 
 
     // ######### Pagination
-    public function getQball(){
-        return $this->createQueryBuilder('a');
-    }
+//    public function getQball(){
+//        return $this->createQueryBuilder('a');
+//    }
 
+
+    public function getQbAll()
+    {
+        return $this -> createQueryBuilder('a');
+    }
 
 }

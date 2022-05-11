@@ -33,4 +33,13 @@ class GenreRepository extends ServiceEntityRepository
             $this->_em->flush();
         }
     }
+
+    public function getGenre($slug) {
+        return $this -> createQueryBuilder('g')
+            -> where('g.slug = :slug')
+            -> setParameter('slug', $slug)
+            // Sécurise le résultat car sinon ça bug
+            -> setMaxResults(1)
+            -> getQuery() -> getOneOrNullResult();
+    }
 }

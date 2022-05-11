@@ -2,7 +2,24 @@
 
 {% block content %}
     <p>Je suis sur la base admin</p>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 text-white">
+                <h1>Menu</h1>
+                <hr>
+                <ul class="nav nav-pills flex-column">
+                    <li><a class="nav-link active">Accueil</a></li>
+                    <li><a class="nav-link" href="{{path('app_game_admin')}}">Jeux</a></li>
+                    <li><a class="nav-link" href="{{path('app_genre')}}">Genre</a></li>
+                    <li><a class="nav-link">Editeurs</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-8">
+                {% block body %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
 
-    {% block body %}
-    {% endblock %}
+
 {% endblock %}
