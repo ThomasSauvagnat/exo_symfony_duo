@@ -4,17 +4,12 @@
     Steamish
 {% endblock %}
 
-
-
 {% block body %}
-    {% if user is null %}
-        <p>pas co</p>
-        {% else %}
-        <p>Co</p>
-    {% endif %}
-
     <div class="container">
     <h2 class="mt-2">Les dernières sorties</h2>
+        {% if app.user %}
+            <p>Coucou</p>
+        {% endif %}
         <div class="row">
             {% for game in lastGames %}
                 <div class="col-md-4 text-center cardGame my-3">

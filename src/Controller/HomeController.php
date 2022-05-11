@@ -18,7 +18,6 @@ class HomeController extends AbstractController
     public function index(): Response
     {
 //        return $this->redirectToRoute('app_home');
-        $user = $this->getUser();
 
         return $this->render('home/index.html.twig', [
             // Simple findBy avec les bon paramètres (pour requêtes assez simple)
@@ -27,7 +26,6 @@ class HomeController extends AbstractController
             'lastComments' => $this -> commentRepository -> lastComments(),
             'mostPlayedGames' => $this -> gameRepository -> getMostPlayedGames(),
             'mostBoughtGames' => $this -> gameRepository -> getMostBoughtGames(),
-            'user' => $user,
         ]);
     }
 
