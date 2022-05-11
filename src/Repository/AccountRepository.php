@@ -54,4 +54,12 @@ class AccountRepository extends ServiceEntityRepository
         -> getQuery() -> getOneOrNullResult();
     }
 
+
+
+    // ######### Pagination
+    public function getQball(){
+        return $this->createQueryBuilder('a');
+    }
+
+
 }

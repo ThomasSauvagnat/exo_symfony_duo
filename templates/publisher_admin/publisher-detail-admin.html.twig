@@ -1,0 +1,28 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    
+        <div class="container">
+            <h2>Liste des jeux</h2>
+
+            <button class="btn btn-secondary"><a href="{{ path('app_publisher_admin') }}">Retour</a></button>
+
+            <table class="table table-hover table-dark">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for game in publisher.games %}
+                        <tr>
+                            <td>{{game.name}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+{% endblock %}

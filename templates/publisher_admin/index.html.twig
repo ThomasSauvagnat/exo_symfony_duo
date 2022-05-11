@@ -1,0 +1,72 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Hello PublisherAdminController!{% endblock %}
+
+{% block body %}
+    
+    <div class="container">
+
+        <h2>Liste des éditeurs</h2>
+
+        <div class="text-center my-3">
+            <a href="{{ path('app_publisher_admin_add') }}"><i class="fa-solid fa-plus"></i></a>
+        </div>
+
+        <table class="table table-hover table-dark">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Site</th>
+                    <th>Pays</th>
+                    <th colspan="3">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {# Permet d'afficher la pagination sur la page  #}
+                <div class="pagination">
+        	        {{ knp_pagination_render(pagination) }}
+    	        </div>
+
+                {# Boucle sur notre variable pagination  #}
+                {% for publisher in pagination %}
+                    <tr>
+                        <td>{{publisher.name}}</td>
+                        <td>{{publisher.website}}</td>
+                        {% if publisher.country != null %}
+                            <td>{{ publisher.country.name }}</td>
+                        {% else %}
+                            <td>Pas de pays !!</td>
+                        {% endif %}
+                        <td> <a href="{{ path('app_publisher_admin_details', {slug: publisher.slug}) }}"><i class="fa-solid fa-eye"></i></a> </td>
+                        <td> <a href="{{ path('app_publisher_admin_update', {slug: publisher.slug}) }}"><i class="fa-solid fa-pen"></i></a> </td>
+                        <td> <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="modal_{{publisher.id}}">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="modal_{{publisher.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Confirmer la suppression de {{ publisher.name }}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    ...
+                                </div>
+                                <div class="modal-footer">
+                                    <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">Non</a>
+                                    <a href="{{ path('app_publisher_admin_delete', {slug: publisher.slug}) }}" type="button" class="btn btn-primary">Oui</a>
+                                </div>
+                                </div>
+                            </div>
+                            </div> 
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Modifier éditeur !{% endblock %}
+
+{% block body %}
+    
+    <div class="container">
+
+        <h2>Modifier un éditeur</h2>
+
+        <button class="btn btn-secondary"><a href="{{ path('app_publisher_admin') }}">Retour</a></button>
+        
+        {{form_start(form) }}
+
+            {# Ajouter les champs de notre PublisherType => on peut faire notre mise en page ici #}
+            {{ form_row(form.name) }}
+            {{ form_row(form.website) }}
+            {{ form_row(form.country) }}
+
+            {# Ajouter un bouton submit #}
+            <button type="submit" class="btn btn-primary" >Ajouter</button>
+        {{form_end(form) }}
+
+    </div>
+
+{% endblock %}

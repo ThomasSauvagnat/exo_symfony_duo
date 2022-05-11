@@ -23,8 +23,8 @@ class Publisher
     #[ORM\Column(type: 'string', length: '180')]
     private string $website;
 
-    #[ORM\ManyToOne(targetEntity: Country::class)]
-    private Country $country;
+    #[ORM\ManyToOne(targetEntity: Country::class, fetch: "EAGER")]
+    private ?Country $country;
 
     #[ORM\OneToMany(mappedBy: 'publisher', targetEntity: Game::class)]
     private Collection $games;
@@ -77,7 +77,7 @@ class Publisher
         $this->name = $name;
     }
 
-    public function getCountry(): Country
+    public function getCountry(): ?Country
     {
         return $this->country;
     }

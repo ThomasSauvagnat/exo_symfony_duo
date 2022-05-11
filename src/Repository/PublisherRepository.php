@@ -53,14 +53,22 @@ class PublisherRepository extends ServiceEntityRepository
     public function getPublisher($slug) {
         return $this->createQueryBuilder('p')
             ->select('p', 'country', 'games')
-            ->join('p.country', 'country')
-            ->join('p.games', 'games')
+            ->leftJoin('p.country', 'country')
+            ->leftJoin('p.games', 'games')
             ->where('p.slug = :slug')
             ->setParameter('slug', $slug)
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
+
+    // Mise en place de la pagination => requête select * sur l'entité  ==> utiliser dans le controller publisherAdminController pour la liste des tous les publishers
+    public function getQbAll(){
+        return $this->createQueryBuilder('p')
+            -> orderBy('p.name')
+        ;
+    }
+
 
 
 }

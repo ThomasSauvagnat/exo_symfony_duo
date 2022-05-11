@@ -30,4 +30,6 @@ class PublisherController extends AbstractController
             'publisher' => $publisherRepository->getPublisher($slug),
         ]);
     }
+
+
 }
