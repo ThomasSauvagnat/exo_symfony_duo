@@ -1,0 +1,25 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Détails des jeux{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>{{ game.name }}</h1>
+        <p> Editeur : {{ game.publisher.name }}</p>
+        <p> Prix : {{ game.price }} €</p>
+        <p> Date de sortie : {{ game.publishedAt|date("d/m/Y") }}</p>
+        <p> Description : {{ game.description }}</p>
+        <p> Lien de l'image : {{ game.thumbnailCover }}</p>
+        <p> Lien du logo : {{ game.thumbnailLogo }}</p>
+        <p> Slug : {{ game.slug }}</p>
+        <h2> Pays : </h2>
+        <p>
+            {% for gameCountry in gameCountries %}
+                {{ gameCountry.name }},
+            {% endfor %}
+        </p>
+        <p> Genre : {% for genre in gameGenres %} {{genre.name}} {% endfor %}</p>
+        <p> Commentaires : {% for comment in gameComments %} <p>{{comment.content}}</p> {% endfor %}</p>
+
+    </div>
+{% endblock %}

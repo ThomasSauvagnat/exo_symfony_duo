@@ -7,6 +7,12 @@
 
 
 {% block body %}
+    {% if user is null %}
+        <p>pas co</p>
+        {% else %}
+        <p>Co</p>
+    {% endif %}
+
     <div class="container">
     <h2 class="mt-2">Les dernières sorties</h2>
         <div class="row">
