@@ -1,0 +1,18 @@
+{% extends 'base.front.html.twig' %}
+
+{% block title %}Modifier un topic{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Formulaire de modification de topic</h1>
+
+        {{ form_start(form) }}
+            {{ form_row(form.title) }}
+            <button type="submit" class="btn btn-secondary">Modifier</button>
+        {{ form_end(form) }}
+
+        {# <a href="{{ path('app_topic') }}"><button class="btn btn-secondary mt-3">Retour</button></a> #}
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'base.front.html.twig' %}
+
+{% block title %}{{forum.title}}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Nom du forum : {{forum.title}}</h1>
+        <h2>Liste des topics</h2>
+
+        {# Bouton pour ajouter un topic => seulement si utilisateur co #}
+        {% if app.user %}
+            <div class="text-center my-3">
+                <a href="{{ path('app_topic_add', {id: forum.id}) }}"><i class="fa-solid fa-plus"></i></a>
+            </div>
+        {% endif %}
+
+        {# Affichage de la liste des topics  #}
+        <table class="table table-hover table-dark">
+                    <thead>
+                        <tr>
+                            <th>Titre</th>
+                            <th>Date de création</th>
+                            <th>Créer par</th>
+                            <th>Nombre de message</th>
+                            <th>Supprimer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for topic in forum.topics %}
+                            <tr>
+                                {# Lien vers les détails d'un forum => liste les topics #}
+                                <td>
+                                    <a href="{{ path('app_topic_detail', {'id': topic.id}) }}">{{topic.title}}</a>
+                                </td>
+                                <td>{{topic.createdAt | date("d/m/Y")}}</td>
+                                <td>{{topic.createdBy.name}}</td>
+
+                                {# ####### Afficher le nombre de message d'un topic  #}
+                                <td>{{topic.messages | length}}</td>
+
+                                {# ######## Modifer un topic seulement par celui qui l'a créé #}
+                                {% if app.user == topic.createdBy %}
+                                <td>
+                                    <a href="{{ path('app_topic_update', {'id': topic.id}) }}">
+                                        <i class="fa-solid fa-pen"></i>
+                                    </a>
+                                </td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+        </table>
+
+
+        <a href="{{ path('app_forum') }}"><button class="btn btn-secondary mt-3">Retour</button></a>
+
+    </div>
+
+{% endblock %}

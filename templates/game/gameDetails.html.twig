@@ -51,9 +51,27 @@
                             'name': true,
                         }
                     %}
-
                 {% endfor %}
-                <a href="{{ path('app_game_comments', {'slug': gameDetails.slug}) }}" class="btn btn-primary">Voir tout</a>
+
+                {# Affiche un formulaire pour ajouter un com si la personne co n'a pas déjà posté un com #}
+                {% if app.user %}
+                    {% if commentEntity is null %}
+                        {{ form_start(form) }}
+                            {{ form_row(form.content) }}
+                            <button type="submit" class="btn btn-primary my-2" >Ajouter</button>
+                        {{ form_end(form) }}
+                        {# Pour la note => passe par des étoiles / donne une valeur à chaque étoile en paasant par un attribut 'data-value' (le nom peut être différent) => voir le js  #}
+                        <div>
+                            <i class="fa-solid fa-star" data-value="1"></i>
+                            <i class="fa-solid fa-star" data-value="2"></i>
+                            <i class="fa-solid fa-star" data-value="3"></i>
+                            <i class="fa-solid fa-star" data-value="4"></i>
+                            <i class="fa-solid fa-star" data-value="5"></i>
+                        </div>
+                    {% endif %}
+                {% endif %}
+
+                <div><a href="{{ path('app_game_comments', {'slug': gameDetails.slug}) }}" class="btn btn-primary">Voir tous les com</a></div>
             </div>
         </div>
         <div class="row my-5">

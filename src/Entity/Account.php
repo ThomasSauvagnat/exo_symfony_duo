@@ -14,6 +14,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 #[UniqueEntity(fields: 'email'), UniqueEntity(fields: 'name')]
 #[ORM\Entity(repositoryClass: AccountRepository::class)]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class Account implements UserInterface, PasswordAuthenticatedUserInterface
 {
 
@@ -50,11 +51,15 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string')]
     private $password;
 
+    #[ORM\OneToMany(mappedBy: 'createdBy', targetEntity: Topic::class)]
+    private $topics;
+
     public function __construct()
     {
         $this->libraries = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->wallet = 0.0;
+        $this->topics = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -261,5 +266,35 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection<int, Topic>
+     */
+    public function getTopics(): Collection
+    {
+        return $this->topics;
+    }
+
+    public function addTopic(Topic $topic): self
+    {
+        if (!$this->topics->contains($topic)) {
+            $this->topics[] = $topic;
+            $topic->setCreatedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTopic(Topic $topic): self
+    {
+        if ($this->topics->removeElement($topic)) {
+            // set the owning side to null (unless already changed)
+            if ($topic->getCreatedBy() === $this) {
+                $topic->setCreatedBy(null);
+            }
+        }
+
+        return $this;
     }
 }

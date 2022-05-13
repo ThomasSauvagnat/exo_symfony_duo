@@ -1,0 +1,33 @@
+{% extends 'base.front.html.twig' %}
+
+{% block title %}Liste des forums{% endblock %}
+
+{% block body %}
+    <div class="container">
+        
+        <h1>Liste des forums</h1>
+        
+        <div class="pagination">
+        	{{ knp_pagination_render(pagination) }}
+    	</div>
+        
+        <table class="table table-hover table-dark">
+            <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Date de création</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for forum in pagination %}
+                    <tr>
+                        {# Lien vers les détails d'un forum => liste les topics #}
+                        <td><a href="{{ path('app_forum_detail', {id: forum.id}) }}">{{forum.title}}</a></td>
+                        <td>{{forum.createdAt | date("d/m/Y")}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
