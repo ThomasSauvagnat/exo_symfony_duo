@@ -1,0 +1,8 @@
+{# <p><strong>Je suis ici</strong></p> #}
+
+<div class="note-star-content">
+    {# Boucle de 1 à la variable note (note = variable return dans GameExtension dans la fonction getStarsForGame()) #}
+    {% for i in 1..note %}
+        <i class="fa-solid fa-star"></i>
+    {% endfor %}
+</div>

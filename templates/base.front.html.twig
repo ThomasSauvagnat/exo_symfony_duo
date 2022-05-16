@@ -10,6 +10,19 @@
     {% endblock %}
     <footer>
         {% block footer %}
+            <div>Ceci est mon footer</div>
+
+            {# °°°° Création d'une variable en twig qui appel notre fonction twig qui permet de récup les 10 derniers jeux => stock un tableau de jeu dans la variable lastGames #}
+            {% set lastGames = get_last_ten_games() %}
+                {# °°°° Boucle sur notre tableau pour afficher le nom de chauqe game  #}
+                {% for game in lastGames %}
+                    {{game.name}}
+
+                    {# °°°° Pour réutiliser notre template _card  #}
+                    {# {% include "card/_card.html.twig" %} #}
+                {% endfor %}
+                
+
         {% endblock %}
     </footer>
 {% endblock %}

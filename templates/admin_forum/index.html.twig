@@ -7,6 +7,13 @@
         
         <h1>Liste des forums</h1>
 
+        {{ form_start(form) }}
+            {{ form_row(form.title) }}
+            {{ form_row(form.dateMini) }}
+            {{ form_row(form.dateMax) }}
+            <button type="submit" class="btn btn-secondary">Rehcercher</button>
+        {{ form_end(form) }}
+
         <div class="text-center my-3">
             <a href="{{ path('app_admin_forum_add') }}"><i class="fa-solid fa-plus"></i></a>
         </div>

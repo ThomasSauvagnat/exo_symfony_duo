@@ -22,7 +22,8 @@
                 {% for forum in pagination %}
                     <tr>
                         {# Lien vers les détails d'un forum => liste les topics #}
-                        <td><a href="{{ path('app_forum_detail', {id: forum.id}) }}">{{forum.title}}</a></td>
+                        {# Ajout d'un filtre twig qui permet d'obtenir le nb de msg par forum  #}
+                        <td><a href="{{ path('app_forum_detail', {id: forum.id}) }}">{{forum.title}} {{forum | count_message_by_forum}}</a></td>
                         <td>{{forum.createdAt | date("d/m/Y")}}</td>
                     </tr>
                 {% endfor %}

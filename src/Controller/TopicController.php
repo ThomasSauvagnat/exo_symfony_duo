@@ -35,7 +35,7 @@ class TopicController extends AbstractController
 
     // Ajouter un topic
     #[Route('/topic/ajouter/{id}', name: 'app_topic_add')]
-    public function addtopic($id, EntityManagerInterface $em, Request $request, ForumRepository $forumRepository): Response
+    public function addTopic($id, EntityManagerInterface $em, Request $request, ForumRepository $forumRepository): Response
     {
         $form = $this->createForm(TopicType::class, new Topic());
         $form->handleRequest($request);
@@ -96,12 +96,9 @@ class TopicController extends AbstractController
     }
 
 
-
-
-
     // Détail d'un topic en fonction de son id (en twig récup les commentaires)
     #[Route('/topic/detail/{id}', name: 'app_topic_detail')]
-    public function index($id, TopicRepository $topicRepository): Response
+    public function detailTopic($id, TopicRepository $topicRepository): Response
     {
         $topic = $topicRepository->find($id);
         // dd($topic);
@@ -109,6 +106,23 @@ class TopicController extends AbstractController
         return $this->render('topic/detail-topic.html.twig', [
             'topic' => $topic
         ]);
+    }
+
+
+    // Supprimer un forum en fonction de son id
+    #[Route('/topic/delete/{id}', name: 'app_topic_delete')]
+    public function deleteTopic($id, TopicRepository $topicRepository, EntityManagerInterface $em): Response
+    {
+        $topic = $topicRepository->find($id);
+
+        // °°°° Récupérer l'id du forum pour pouvoir retourner sur la page de tous les topics du forum en question :
+        $forumId = $topic->getForum()->getId();
+        
+        $em->remove($topic);
+        $em->flush();
+
+        // °°°° Redirige vers la liste des topic d'un forum => lui passer en paramètre d'url l'id du forum en question
+        return $this->redirectToRoute('app_forum_detail', ['id' => $forumId]);
     }
 
 }

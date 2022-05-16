@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Forum;
 use App\Form\ForumType;
+use App\Form\SearchForumType;
 use App\Repository\ForumRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,22 +17,45 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminForumController extends AbstractController
 {
 
-    // Affichier la liste des forums avec pagination
+    // Affichier la liste des forums avec pagination + barre de recherche
     #[Route('/admin/forum', name: 'app_admin_forum')]
     public function index(ForumRepository $forumRepository, PaginatorInterface $paginator, Request $request): Response
     {
         // $forums = $forumRepository->findAll();
         // dd($forums);
 
+        // °°°° Récupère tous les forum
         $qb = $forumRepository->getQbAll();
+
+        // °°°° Création d'une barre de recherche
+        // Commence par créer notre barre de recherche qui est basé sur notre fichier SearchForumType
+        // Pas d'objet à passer en second paramètre
+        $form = $this->createForm(SearchForumType::class);
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // dump($form->getData());
+            // Récupère les donné quand le form est envoyé
+            $datas = $form->getData();
+
+            // Modifie notre requête qui selectionne tous les forum pour ne selectionner que les forums qui contienne ce que l'on rentre dans la barre de recherche
+            $qb= $forumRepository->updateQbByData($qb, $datas);
+        }
+
+
+        // °°°° Pagination
         $pagination = $paginator->paginate(
             $qb,
             $request->query->getInt('page', 1),
-            2
+            4
         );
 
         return $this->render('admin_forum/index.html.twig', [
             'pagination' => $pagination,
+
+            // °°°° Passe à la vue le form
+            'form' => $form->createView()
         ]);
     }
 

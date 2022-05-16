@@ -55,6 +55,40 @@ class ForumRepository extends ServiceEntityRepository
     }
 
 
+    // Pour gérer la barre de recherche des forums 
+    // Ne pas créer de createQueryBuilder car on va maj la selection du dessus
+    public function updateQbByData($qb, $datas){
+        dump($datas);
+
+        // Recherche sur le title = le nom de notre champ dans le fichier searchForumType
+        if ($datas['title'] !== null) {
+
+            // Recherche selon le title de notre objet forum et lui passe en valeur le champ $datas['title']
+            $qb->andWhere('f.title LIKE :param_title')
+                ->setParameter('param_title', '%'.$datas['title'].'%');
+        }
+
+        // Recherche sur la dateMin
+        if ($datas['dateMini'] !== null) {
+
+            // Recherche selon la dateMini de notre objet forum et lui passe en valeur le champ $datas['dateMini']
+            $qb->andWhere('f.createdAt > :dateMini')
+                ->setParameter('dateMini', $datas['dateMini']);
+                dump('Je suis dans dateMini');
+        }
+
+        // Recherche sur la dateMax
+        if ($datas['dateMax'] !== null) {
+
+            // Recherche selon la dateMax de notre objet forum et lui passe en valeur le champ $datas['dateMax']
+            $qb->andWhere('f.createdAt < :dateMax')
+                ->setParameter('dateMax', $datas['dateMax']);
+        }
+
+        return $qb;
+    }
+
+
     // /**
     //  * @return Forum[] Returns an array of Forum objects
     //  */

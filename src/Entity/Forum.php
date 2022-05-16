@@ -21,7 +21,9 @@ class Forum
     #[ORM\Column(type: 'string', length: 255)]
     private $title;
 
-    #[ORM\OneToMany(mappedBy: 'forum', targetEntity: Topic::class)]
+    // °°°° Ajout d'un paramètre qui permet la suppresion en cascade => si je delete un forum je delete un topic
+    // ==> faire la même chose dans l'entité topic pour la propriété msg
+    #[ORM\OneToMany(mappedBy: 'forum', targetEntity: Topic::class, cascade:['remove'])]
     private $topics;
 
     public function __construct()
