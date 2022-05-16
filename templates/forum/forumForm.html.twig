@@ -1,0 +1,15 @@
+{% extends 'base.front.html.twig' %}
+
+{% block title %}Créer un forum{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <h1>Créer un forum</h1>
+        {{ form_start(form) }}
+            {{ form_row(form.title) }}
+            <button type="submit" class="btn btn-secondary">Créer le forum</button>
+        {{ form_end(form) }}
+    </div>
+</div>
+{% endblock %}

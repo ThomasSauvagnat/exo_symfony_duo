@@ -1,32 +1,35 @@
 {% extends 'base.front.html.twig' %}
 
-{% block title %}Liste des Topics{% endblock %}
+{% block title %}Liste des topics{% endblock %}
 
 {% block body %}
-    <div class="container">
-        
-        <h1>Liste des Topics</h1>
-        
-        <div class="pagination">
-        	{{ knp_pagination_render(pagination) }}
-    	</div>
-        
-        <table class="table table-hover table-dark">
+<div class="container">
+    <div class="row">
+        {% if is_granted("ROLE_ADMIN") and is_granted("ROLE_USER") %}
+            <a href="{{ path('app_topic_create', {id: forum.id})}}"><button class="btn btn-secondary">Créer un topic</button></a>
+        {% endif %}
+        <h1>Liste des topics de : {{forum.title}}</h1>
+        <table class="table table-bordered table-hover table-dark">
             <thead>
-                <tr>
-                    <th>Titre</th>
-                    <th>Date de création</th>
-                </tr>
+            <tr>
+                <th>Sujet</th>
+                <th>Auteur</th>
+                <th>NB</th>
+                <th>Dernier message</th>
+            </tr>
             </thead>
             <tbody>
-                {# {% for forum in pagination %}
-                    <tr>
-                        <td><a href="{{ path('app_forum_detail', {id: forum.id}) }}">{{forum.title}}</a></td>
-                        <td>{{forum.createdAt | date("d/m/Y")}}</td>
-                    </tr>
-                {% endfor %} #}
+
+                {% for topic in topics %}
+                <tr>
+                    <th><a href="{{ path('app_message', {id: topic.id}) }}">{{ topic.title }}</a></th>
+                    <th>{{ topic.createdBy.name }}</th>
+                    <th>{{topic.messages|length }}</th>
+                    <th> En cours </th>
+                </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
-
+</div>
 {% endblock %}

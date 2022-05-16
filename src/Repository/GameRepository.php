@@ -178,4 +178,28 @@ class GameRepository extends ServiceEntityRepository
     //     -> getQuery() 
     //     -> getOneOrNullResult();
     // }
+
+    public function getQbAll()
+    {
+        return $this->createQueryBuilder('g');
+    }
+
+    public function updateQbByData($qb, $data)
+    {
+        if($data['search'] !== null) {
+            $qb->where('g.name LIKE :game_search')
+                ->setParameter('game_search', '%'.$data['search'].'%');
+        }
+        if ($data['price'] !== null) {
+            $qb->where('g.price <= :max_price')
+                ->setParameter('max_price', $data['price']);
+        }
+        if($data['genres'] !== null) {
+            $qb->join('g.genres', 'genres')
+                ->where('genres IN (:dataGenres)')
+                ->setParameter('dataGenres', $data['genres']);
+        }
+        return $qb;
+    }
+
 }

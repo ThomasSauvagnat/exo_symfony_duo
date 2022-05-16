@@ -42,23 +42,18 @@ class CommentRepository extends ServiceEntityRepository
         -> setMaxResults(4)
         -> getQuery() -> getResult();
     }
-
-
     // Requete pour récupérer les commentaires d'un utilisateur en fonction d'un jeu
-    public function findOnByGameAndUser($gameEntity , $user)
+    public function findOneByGameAndUser($gameEntity, $user)
     {
-        return $this -> createQueryBuilder('c')
-        -> join('c.game', 'g')
-        -> join('c.account', 'a')
-        -> where('g = :game')
-        -> andWhere('a = :account')
-        -> setParameter('game', $gameEntity)
-        -> setParameter('account', $user)
-
-        // Quand on passe par un getOneOrNullResult() mettre un setMaxResults(1) pour éviter le fait que l'on renvoi plus d'un seul résultat
-        -> setMaxResults(1)
-        -> getQuery() -> getOneOrNullResult();
+        return $this->createQueryBuilder('c')
+            ->join('c.game', 'g')
+            ->join('c.account', 'a')
+            ->where('g = :game')
+            ->andWhere('a = :account')
+            ->setParameter('game', $gameEntity)
+            ->setParameter('account', $user)
+            // Quand on passe par un getOneOrNullResult() mettre un setMaxResults(1) pour éviter le fait que l'on renvoi plus d'un seul résultat
+            ->setMaxResults(1)
+            ->getQuery()->getOneOrNullResult();
     }
-
-
 }

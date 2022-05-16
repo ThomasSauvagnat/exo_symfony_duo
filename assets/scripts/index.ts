@@ -1,2 +1,2 @@
 import 'bootstrap';
-import './module/starsForm'
+import './Modules/starForm';

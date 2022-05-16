@@ -14,7 +14,7 @@ class ForumType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'label' => 'Titre'
+                'label' => 'Titre du forum'
             ])
         ;
     }

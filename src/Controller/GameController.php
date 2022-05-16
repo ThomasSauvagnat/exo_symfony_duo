@@ -3,9 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
+use App\Form\AddCommentType;
+use App\Repository\CommentRepository;
+use App\Entity\Comment;
 use App\Form\CommentType;
 use App\Repository\CommentRepository;
 use App\Repository\GameRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,46 +32,40 @@ class GameController extends AbstractController
     }
 
     #[Route('/{slug}', name: 'app_game_details')]
-    public function gameDetails($slug, GameRepository $gameRepository, CommentRepository $commentRepository, Request $request, EntityManagerInterface $em): Response
+    public function gameDetails($slug, GameRepository $gameRepository, CommentRepository $commentRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
+        $gameDetail = $gameRepository -> getGameDetails($slug);
         // Récupérer l'utilisateur co
         $user = $this->getUser();
-
-        $gameDetail = $gameRepository -> getGameDetails($slug);
+        dump($user);
 
         // #### Pour ajouter form pour les comm
         // Récupère les jeux en fonction du slug => même qu'au dessus mais en passant par le repo
-        $gameEntity = $gameRepository->findOneBy(['slug' => $slug]);
+        $gameEntity = $gameRepository -> findOneBy(['slug' => $slug]);
         // Passe par une requete créé dans notre repo Comment qui récup un comment ou null
-        $commentEntity  = $commentRepository->findOnByGameAndUser($gameEntity , $user);
+        $commentEntity = $commentRepository -> findOneByGameAndUser($gameEntity, $user);
+        dump($commentEntity);
 
-        // ### Pour le form 
-        $comment = new Comment();
-        $form = $this->createForm(CommentType::class, $comment);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $newComment = $form->getData();
-
-            $newComment->setUpVotes(0);
-            $newComment->setDownVotes(0);
-            $newComment->setCreatedAt(new DateTime());
-            $newComment->setAccount($user);
-            $newComment->setGame($gameEntity);
-
-            $em->persist($newComment);
-            $em->flush();
-
-            // Pour éviter que le form récupère les données du form une fois la soumision => redirige vers la même page et passe un second paramètre qui correspond au slug
-            return $this->redirectToRoute('app_game_details', ["slug" => $slug]);
-
+        $formComment = $this->createForm(AddCommentType::class, new Comment());
+        $formComment->handleRequest($request);
+        if($formComment->isSubmitted() && $formComment->isValid()) {
+            $comment = $formComment->getData();
+            $comment->setUpVotes(0);
+            $comment->setDownVotes(0);
+            $comment->setCreatedAt(new \DateTime());
+            $comment->setAccount($user);
+            $comment->setGame($gameEntity);
+            $entityManager->persist($comment);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_game_details', ['slug' => $slug]);
         }
 
         return $this->render('game/gameDetails.html.twig', [
             'gameDetails' => $gameDetail,
             'gameRelated' => $gameRepository -> getRelatedGames($gameDetail),
+            'user' => $user,
             'commentEntity' => $commentEntity,
-            'form' => $form->createView()
+            'form' => $formComment->createView(),
         ]);
     }
 

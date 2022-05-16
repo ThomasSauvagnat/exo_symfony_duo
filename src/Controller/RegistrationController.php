@@ -19,7 +19,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, AppCustomAuthenticator $authenticator, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
+    public function register(SluggerInterface $slugger ,Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, AppCustomAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
         $user = new Account();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -33,14 +33,14 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-
-            // Ajout des nouveaux champs de notre account qui ne sont pas génére par défaut
-            $user->setWallet(0);
+            $user->setCreatedAt(new \DateTime());
             // Avec la méthode slug de notre SluggerInterface => on passe en paramètre ce que l'on veut modifier pour que ce soit fait de la manière d'un slug => pas d'espace
             $slug = $slugger->slug($user->getName());
             // On modifie le slug, avec la variable du dessus
             $user->setSlug($slug);
-            $user->setCreatedAt(new DateTime());
+            // Ajout des nouveaux champs de notre account qui ne sont pas génére par défaut
+            $user->setWallet(0);
+
 
             $entityManager->persist($user);
             $entityManager->flush();

@@ -54,12 +54,19 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'createdBy', targetEntity: Topic::class)]
     private $topics;
 
+    #[ORM\OneToMany(mappedBy: 'createdBy', targetEntity: Message::class)]
+    private $messages;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private $nbBanWord;
+
     public function __construct()
     {
         $this->libraries = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->wallet = 0.0;
         $this->topics = new ArrayCollection();
+        $this->messages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -294,6 +301,48 @@ class Account implements UserInterface, PasswordAuthenticatedUserInterface
                 $topic->setCreatedBy(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Message>
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Message $message): self
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
+            $message->setCreatedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message): self
+    {
+        if ($this->messages->removeElement($message)) {
+            // set the owning side to null (unless already changed)
+            if ($message->getCreatedBy() === $this) {
+                $message->setCreatedBy(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getNbBanWord(): ?int
+    {
+        return $this->nbBanWord;
+    }
+
+    public function setNbBanWord(?int $nbBanWord): self
+    {
+        $this->nbBanWord = $nbBanWord;
 
         return $this;
     }
