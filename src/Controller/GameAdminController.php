@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Game;
 use App\Form\GameType;
+use App\Form\SearchGameType;
 use App\Repository\GameRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,20 +16,38 @@ use Symfony\Component\Routing\Annotation\Route;
 class GameAdminController extends AbstractController
 {
     private GameRepository $gameRepository;
+    private PaginatorInterface $paginator;
 
-
-    public function __construct(GameRepository $gameRepository)
+    public function __construct(GameRepository $gameRepository, PaginatorInterface $paginator)
     {
         $this->gameRepository = $gameRepository;
+        $this->paginator = $paginator;
     }
 
     #[Route('/admin/game', name: 'app_game_admin')]
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        $allGames = $this -> gameRepository -> findAll();
+        $qb = $this->gameRepository->getQbAll();
+
+        // Importation du formulaire
+        $form = $this->createForm(SearchGameType::class);
+        $form->handleRequest($request);
+        // Traitement du formualire s'il est soumis
+        if ($form->isSubmitted() && $form->isValid()) {
+            dump($form->getData());
+            $qb = $this->gameRepository->updateQbByData($qb, $form->getData());
+        }
+
+        // pendant le traitement du formulaire => update notre qb
+        $pagination = $this->paginator->paginate(
+            $qb,
+            $request->query->getInt('page', 1),
+            12
+        );
 
         return $this->render('game_admin/index.html.twig', [
-            'games' => $allGames,
+            'pagination' => $pagination,
+            'form' => $form->createView()
         ]);
     }
 

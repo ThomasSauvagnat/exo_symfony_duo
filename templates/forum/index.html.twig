@@ -1,0 +1,32 @@
+{% extends 'base.front.html.twig' %}
+
+{% block title %}Liste des forums{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        {% if is_granted("ROLE_ADMIN") %}
+            <a href="{{ path('app_forum_create') }}"><button class="btn btn-secondary">Créer un forum</button></a>
+        {% endif %}
+        <h1>Forums</h1>
+        <div>
+            <table class="table table-hover table-bordered table-dark">
+                <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Date de création</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for forum in forums %}
+                    <tr>
+                        <th><a class="text-decoration-none" href="{{ path('app_topic', {id: forum.id}) }}">{{ forum.title }} {{ forum|count_message_by_forum }}</a></th>
+                        <th>{{ forum.createdAt|date('d/m/Y') }}</th>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

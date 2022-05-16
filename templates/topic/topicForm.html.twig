@@ -1,0 +1,14 @@
+{% extends 'base.front.html.twig' %}
+
+{% block title %}Création d'un topic{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            {{ form_start(formTopic) }}
+                {{ form_row(formTopic.title) }}
+                <button type="submit" class="btn btn-secondary">Créer le topic</button>
+            {{ form_end(formTopic) }}
+        </div>
+    </div>
+{% endblock %}

@@ -16,12 +16,24 @@
           <a class="nav-link text-white" href="{{ path('app_account_all') }}">Comptes</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white btn btn-primary" href="{{ path('app_account_new') }}">Inscription</a>
+          <a class="nav-link text-white" href="{{ path('app_forum') }}">Forums</a>
         </li>
         {% if is_granted("ROLE_ADMIN") %}
           <li class="nav-item">
             <a class="nav-link text-white" href="{{ path('app_admin') }}">DashBoard</a>
           </li>
+        {% endif %}
+        {% if app.user is null %}
+          <li class="nav-item">
+            <a class="nav-link text-white btn btn-primary" href="{{ path('app_register') }}">Inscription</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white btn btn-primary" href="{{ path('app_login') }}">Se connecter</a>
+          </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link text-white btn btn-primary" href="{{ path('app_logout') }}">Se déconnecter</a>
+            </li>
         {% endif %}
       </ul>
     </div>

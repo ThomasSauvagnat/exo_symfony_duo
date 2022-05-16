@@ -10,6 +10,14 @@
     {% endblock %}
     <footer>
         {% block footer %}
+            <div>
+                {# On crée une variable avec SET et on appel notre fonction à l'intérieur de celle-ci#}
+                {% set lastGames = get_last_ten_games() %}
+                {% for game in lastGames %}
+                    <p> {{ game.name }}</p>
+                {% endfor %}
+                <p>Ceci est mon footer</p>
+            </div>
         {% endblock %}
     </footer>
 {% endblock %}

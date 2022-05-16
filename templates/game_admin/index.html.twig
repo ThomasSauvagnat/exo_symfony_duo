@@ -4,6 +4,19 @@
 
 {% block body %}
 <div class="container">
+    {{ form_start(form) }}
+        {{ form_row(form.search)}}
+        {{ form_row(form.price)}}
+    <div class="row">
+        <div>
+            {{ form_row(form.genres)}}
+        </div>
+    </div>
+        <button type="submit" class="btn btn-secondary">Rechercher</button>
+    {{ form_end(form) }}
+    <div class="pagination">
+        {{ knp_pagination_render(pagination) }}
+    </div>
     <div class="text-center">
         <a href="{{ path('app_game_add') }}"><i class="fa-solid fa-plus"></i></a>
     </div>
@@ -15,7 +28,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for game in games %}
+        {% for game in pagination %}
             <tr>
                 <td> {{ game.name }}</td>
                 <td> <a href="{{ path('app_game_admin_details', {'slug': game.slug}) }}"><i class="fa-solid fa-eye"></i></a> </td>

@@ -2,8 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
+use App\Form\AddCommentType;
+use App\Repository\CommentRepository;
 use App\Repository\GameRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -22,13 +27,36 @@ class GameController extends AbstractController
     }
 
     #[Route('/{slug}', name: 'app_game_details')]
-    public function gameDetails($slug, GameRepository $gameRepository): Response
+    public function gameDetails($slug, GameRepository $gameRepository, CommentRepository $commentRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
         $gameDetail = $gameRepository -> getGameDetails($slug);
+        $user = $this->getUser();
+        dump($user);
+
+        $gameEntity = $gameRepository -> findOneBy(['slug' => $slug]);
+        $commentEntity = $commentRepository -> findOneByGameAndUser($gameEntity, $user);
+        dump($commentEntity);
+
+        $formComment = $this->createForm(AddCommentType::class, new Comment());
+        $formComment->handleRequest($request);
+        if($formComment->isSubmitted() && $formComment->isValid()) {
+            $comment = $formComment->getData();
+            $comment->setUpVotes(0);
+            $comment->setDownVotes(0);
+            $comment->setCreatedAt(new \DateTime());
+            $comment->setAccount($user);
+            $comment->setGame($gameEntity);
+            $entityManager->persist($comment);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_game_details', ['slug' => $slug]);
+        }
 
         return $this->render('game/gameDetails.html.twig', [
             'gameDetails' => $gameDetail,
             'gameRelated' => $gameRepository -> getRelatedGames($gameDetail),
+            'user' => $user,
+            'commentEntity' => $commentEntity,
+            'form' => $formComment->createView(),
         ]);
     }
 
