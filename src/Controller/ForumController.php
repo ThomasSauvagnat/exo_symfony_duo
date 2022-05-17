@@ -6,7 +6,6 @@ use App\Entity\Forum;
 use App\Form\ForumType;
 use App\Repository\ForumRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Repository\ForumRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,15 +21,15 @@ class ForumController extends AbstractController
         $this->forumRepository = $forumRepository;
     }
 
-    #[Route('/forum', name: 'app_forum')]
-    public function index(): Response
-    {
-        $allForum = $this->forumRepository->findAll();
-
-        return $this->render('forum/index.html.twig', [
-            'forums' => $allForum,
-        ]);
-    }
+//    #[Route('/forum', name: 'app_forum')]
+//    public function index(): Response
+//    {
+//        $allForum = $this->forumRepository->findAll();
+//
+//        return $this->render('forum/index.html.twig', [
+//            'forums' => $allForum,
+//        ]);
+//    }
 
     #[Route('/forum/creer', name: 'app_forum_create')]
     public function forumForm(Request $request, EntityManagerInterface $entityManager): Response

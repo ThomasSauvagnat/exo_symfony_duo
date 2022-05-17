@@ -26,7 +26,6 @@
                     <th>Titre</th>
                     <th>Date de création</th>
                 </tr>
-<<<<<<< HEAD
             </thead>
             <tbody>
                 {% for forum in pagination %}
@@ -38,22 +37,7 @@
                     </tr>
                 {% endfor %}
             </tbody>
-        </table>
-    </div>
-
-=======
-                </thead>
-                <tbody>
-                {% for forum in forums %}
-                    <tr>
-                        <th><a class="text-decoration-none" href="{{ path('app_topic', {id: forum.id}) }}">{{ forum.title }} {{ forum|count_message_by_forum }}</a></th>
-                        <th>{{ forum.createdAt|date('d/m/Y') }}</th>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
     </div>
 </div>
->>>>>>> tom2
+
 {% endblock %}

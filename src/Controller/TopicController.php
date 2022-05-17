@@ -8,7 +8,6 @@ use App\Repository\ForumRepository;
 use App\Repository\TopicRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use DateTime;
-use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
